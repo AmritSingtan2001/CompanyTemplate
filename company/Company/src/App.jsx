@@ -5,6 +5,8 @@ import AboutUs from './components/About';
 import MessageMD from './components/Message';
 import TeamMember from './components/Team';
 import Contact from './components/Contact';
+import Blogs from './components/Blogs';
+import Footer from './components/Footer';
 
 function App() {
   return (
@@ -15,6 +17,8 @@ function App() {
       <MessageMD/>
       <TeamMember/>
       <Contact/>
+      <Blogs/>
+      <Footer/>
     </>
   )
 }
