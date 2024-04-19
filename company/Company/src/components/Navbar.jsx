@@ -5,7 +5,7 @@ import Navbar from 'react-bootstrap/Navbar';
 const TopNavbar = () => {
   return (
     <>
-      <Navbar bg="dark" data-bs-theme="dark">
+      <Navbar bg="dark" data-bs-theme="dark" className='sticky-top'>
         <Container>
           <Navbar.Brand href="#home">
             <img src='https://jagaranaarogya.com/static/app/img/jagarnArogya.png' alt="Jagarn Arogya Logo" style={{ height: '50px' }}/>

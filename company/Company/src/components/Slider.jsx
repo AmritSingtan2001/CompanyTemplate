@@ -18,7 +18,7 @@ const Slider =() =>{
   const FetchBanner = async() =>{
     try {
       setLoading(true);
-      const response = await axios.get("http://192.168.18.187:8000/api/v1/banner/");
+      const response = await axios.get("http://127.0.0.1:8000/api/v1/banner/");
       setBanner(response.data)
       // console.log("hello i am down")
       setLoading(false);
