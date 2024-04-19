@@ -1,34 +1,28 @@
-import Container from 'react-bootstrap/Container';
-import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar';
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { Container, Nav, Navbar } from 'react-bootstrap';
 
 const TopNavbar = () => {
   return (
-    <>
-      <Navbar bg="dark" data-bs-theme="dark" className='sticky-top'>
-        <Container>
-          <Navbar.Brand href="#home">
-            <img src='https://jagaranaarogya.com/static/app/img/jagarnArogya.png' alt="Jagarn Arogya Logo" style={{ height: '50px' }}/>
-          </Navbar.Brand>
-            <Navbar.Collapse className="justify-content-end">
-                <Nav >
-                    <Nav.Link href="#home" className='fs-5 text-white p-2'>Home</Nav.Link>
-                    <Nav.Link href="#features" className='fs-5 text-white p-2'>Features</Nav.Link>
-                    <Nav.Link href="#pricing" className='fs-5 text-white p-2'>Pricing</Nav.Link>
-                    <Nav.Link href="#home" className='fs-5 text-white p-2'>Home</Nav.Link>
-                    <Nav.Link href="#features" className='fs-5 text-white p-2'>Features</Nav.Link>
-                    <Nav.Link href="#pricing" className='fs-5 text-white p-2'>Pricing</Nav.Link>
-                </Nav>
-                <button className='btn btn-outline-danger text-white py-2'>
-                    Contact Us
-                </button>
-            </Navbar.Collapse>
-        </Container>
-      </Navbar>
-      
-    </>
+    <Navbar bg="dark" variant="dark" className='sticky-top'>
+      <Container>
+        <Navbar.Brand as={Link} to="/">
+          <img src='https://jagaranaarogya.com/static/app/img/jagarnArogya.png' alt="Jagarn Arogya Logo" style={{ height: '50px' }}/>
+        </Navbar.Brand>
+        <Navbar.Toggle aria-controls="navbar-nav" />
+        <Navbar.Collapse id="navbar-nav" className="justify-content-end">
+          <Nav>
+            <Nav.Link as={Link} to="/" className='fs-5 text-white p-2'>Home</Nav.Link>
+            <Nav.Link as={Link} to="/about" className='fs-5 text-white p-2'>About</Nav.Link>
+            <Nav.Link as={Link} to="/team" className='fs-5 text-white p-2'>Team</Nav.Link>
+            <Nav.Link as={Link} to="/contact" className='fs-5 text-white p-2'>Contact</Nav.Link>
+            <Nav.Link as={Link} to="/blogs" className='fs-5 text-white p-2'>Blogs</Nav.Link>
+          </Nav>
+          <Link to="/contact" className='btn btn-outline-danger text-white py-2'>Contact Us</Link>
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
   );
 }
-
 
 export default TopNavbar;

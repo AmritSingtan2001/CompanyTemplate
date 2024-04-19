@@ -3,16 +3,15 @@ from autoslug import AutoSlugField
 
 # Create your models here.
 class About(models.Model):
-        name  = models.CharField(max_length= 100)
-        email = models.EmailField()
-        phone= models.PositiveIntegerField()
-        image  = models.ImageField(upload_to='aboutimage/')
+        image = models.ImageField(upload_to='aboutimage/')
+        title = models.CharField(max_length=150)
+        descriptions = models.TextField()
 
         class Meta:
                 ordering =['-id']
         
         def __str__(self):
-                return self.name +self.email + str(self.phone)
+                return self.title
     
 
 

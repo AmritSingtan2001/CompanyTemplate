@@ -3,7 +3,7 @@ from . models import About ,Blog ,Project , Banner
 
 class AboutAdmin(admin.ModelAdmin):
     model = About
-    list_display =['id','name','email']
+    list_display =['id','title']
 admin.site.register(About,AboutAdmin)
 
 class BlogAdmin(admin.ModelAdmin):

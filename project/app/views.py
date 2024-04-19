@@ -7,9 +7,9 @@ from rest_framework import generics
 def index(request):
     return HttpResponse("Hello")
 
-def about(request):
-    return HttpResponse("About")
-
+class AboutListView(generics.ListAPIView):
+    queryset = About.objects.all()
+    serializer_class =AboutSerializers
 
 class BlogListView(generics.ListCreateAPIView):
     queryset  = Blog.objects.all()  # Select * from blog 

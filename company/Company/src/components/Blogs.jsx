@@ -1,68 +1,77 @@
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import Badge from 'react-bootstrap/Badge';
-import Card from 'react-bootstrap/Card';
+import React, { useState, useEffect } from 'react';
+import { Container, Row, Col, Badge, Card } from 'react-bootstrap';
+import axios from 'axios';
+import Loader from './Loader'; // Assuming Loader component is defined elsewhere
 
 const Blogs = () => {
+    const [blogs, setBlogs] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
+
     const textStyle = {
-        textAlign: 'justify', 
+        textAlign: 'justify',
     };
 
-    
-    return(
-        <>
-            <Container>
-                <Row>
-                    <Col md={12} className='mb-3'>
-                        <div className='text-center pt-5'>
-                            <Badge bg="warning" className='py-2 px-3 mb-3 rounded text-white'>Blogs</Badge> 
-                            <h4 className='text-uppercase'>Our Latest Blog </h4>
-                        </div>
-                    </Col>
+    useEffect(() => {
+        const fetchBlogs = async () => {
+            setLoading(true);
+            try {
+                const response = await axios.get("http://127.0.0.1:8000/api/v1/blogs/");
+                setBlogs(response.data);
+            } catch (error) {
+                setError('Error fetching blogs'); // Set error state on fetch failure
+            }
+            setLoading(false);
+        };
 
-                    <Col md={3}>
-                        <Card >
-                            <Card.Img variant="top" src="https://brookings.edu/wp-content/uploads/2023/09/shutterstock_1708245121-1.jpg" />
+        fetchBlogs();
+    }, []);
+
+    if (loading) {
+        return <Loader />;
+    }
+
+    if (error) {
+        return <p>{error}</p>;
+    }
+
+    if (blogs.length === 0) {
+        return <p>No blogs available</p>;
+    }
+
+    const renderLimitedDescription = (description, maxLength) => {
+        if (description.length > maxLength) {
+            return description.substring(0, maxLength) + '...';
+        }
+        return description;
+    };
+
+    return (
+        <Container>
+            <Row className='my-5 justify-content-center'>
+                <Col md={12} className="mb-3">
+                    <div className="text-center pt-5">
+                        <Badge bg="warning" className="py-2 px-3 mb-3 rounded text-white">Blogs</Badge>
+                        <h4 className="text-uppercase">Our Latest Blog</h4>
+                    </div>
+                </Col>
+
+                {blogs.map((blog) => (
+                    <Col md={3} key={blog.id}>
+                        <Card>
+                            <Card.Img height={200} width={200} variant="top" src={blog.image} className='object-fit-contain' />
                             <Card.Body className="text-center">
-                                <strong>Lorem Ipsum</strong>
-                                <p style={textStyle}>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type</p>
+                                <strong>{blog.title}</strong>
+                                <p style={textStyle}>
+                                    {renderLimitedDescription(blog.description, 100)}
+                                </p>
                             </Card.Body>
                         </Card>
                     </Col>
-                    <Col md={3}>
-                        <Card >
-                            <Card.Img variant="top" src="https://brookings.edu/wp-content/uploads/2023/09/shutterstock_1708245121-1.jpg" />
-                            <Card.Body className="text-center">
-                                <strong>Lorem Ipsum</strong>
-                                <p style={textStyle}>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type</p>
-                            </Card.Body>
-                        </Card>
-                    </Col>
-                    <Col md={3}>
-                        <Card >
-                            <Card.Img variant="top" src="https://brookings.edu/wp-content/uploads/2023/09/shutterstock_1708245121-1.jpg" />
-                            <Card.Body className="text-center">
-                                <strong>Lorem Ipsum</strong>
-                                <p style={textStyle}>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type</p>
-                            </Card.Body>
-                        </Card>
-                    </Col>
-                    <Col md={3}>
-                        <Card >
-                            <Card.Img variant="top" src="https://brookings.edu/wp-content/uploads/2023/09/shutterstock_1708245121-1.jpg" />
-                            <Card.Body className="text-center">
-                                <strong>Lorem Ipsum</strong>
-                                <p style={textStyle}>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type</p>
-                            </Card.Body>
-                        </Card>
-                    </Col>
-                    
-                    
-                </Row>
-            </Container>
-        </>
-    )
+                ))}
+            </Row>
+        </Container>
+    );
 };
 
 export default Blogs;
