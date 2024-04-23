@@ -33,3 +33,12 @@ class ProjectRerieveUpdateDeleteView(generics.RetrieveUpdateDestroyAPIView):
 class BannerListView(generics.ListCreateAPIView):
     queryset = Banner.objects.all()
     serializer_class = BannerSerializers
+
+class TeamMemberListView(generics.ListAPIView):
+    queryset = TeamMember.objects.all()
+    serializer_class = TeamMemberSerializers
+
+
+class ContacUsPostView(generics.CreateAPIView):
+    queryset=  ContactUs.objects.all()
+    serializer_class = ContactUsSerializers

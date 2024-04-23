@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Badge, Card } from 'react-bootstrap';
 import axios from 'axios';
 import Loader from './Loader'; // Assuming Loader component is defined elsewhere
+import { Link } from 'react-router-dom';
 
 const Blogs = () => {
     const [blogs, setBlogs] = useState([]);
@@ -57,7 +58,10 @@ const Blogs = () => {
                 </Col>
 
                 {blogs.map((blog) => (
+                    
+                    
                     <Col md={3} key={blog.id}>
+                        < Link to={`/blog/detail/${blog.id}`}>
                         <Card>
                             <Card.Img height={200} width={200} variant="top" src={blog.image} className='object-fit-contain' />
                             <Card.Body className="text-center">
@@ -67,7 +71,10 @@ const Blogs = () => {
                                 </p>
                             </Card.Body>
                         </Card>
+                    </Link>
                     </Col>
+                   
+                    
                 ))}
             </Row>
         </Container>

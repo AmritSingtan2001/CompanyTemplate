@@ -1,5 +1,5 @@
 from django.contrib import admin
-from . models import About ,Blog ,Project , Banner
+from . models import About ,Blog ,Project , Banner,TeamMember,ContactUs
 
 class AboutAdmin(admin.ModelAdmin):
     model = About
@@ -21,3 +21,7 @@ class BannerAdmin(admin.ModelAdmin):
     model = Banner
     list_display = ['id','title','createdAt']
 admin.site.register(Banner,BannerAdmin)
+
+
+admin.site.register(TeamMember)
+admin.site.register(ContactUs)

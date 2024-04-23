@@ -54,4 +54,24 @@ class Banner(models.Model):
 
         def __str__(self):
                 return self.title +self.description
+        
 
+class TeamMember(models.Model):
+        name= models.CharField(max_length=150)
+        image = models.ImageField(upload_to='teamimage/')
+        position = models.CharField(max_length=150)
+
+
+        def __str__(self):
+                return self.name
+
+
+
+class ContactUs(models.Model):
+        name =models.CharField(max_length=150)
+        email = models.EmailField()
+        phone = models.CharField(max_length=150)
+        message = models.TextField()
+
+        def __str__(self):
+                return self.name
