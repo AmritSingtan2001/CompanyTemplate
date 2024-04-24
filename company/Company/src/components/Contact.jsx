@@ -6,11 +6,11 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import axios from "axios";
 import { useState } from 'react';
-import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-
+import {toast} from "react-toastify"
 
 const Contact = () =>{
+
+    const [loading, setLoading] =useState(false)
 
     const [formData, setFormData] = useState({
         name: '',
@@ -20,41 +20,45 @@ const Contact = () =>{
     });
 
     const handleChange = (e) => {
-        const { name, value } = e.target;
+        // const { name, value } = e.target;
+        // setFormData((prevData) => ({
+        //     ...prevData,
+        //     [name]: value
+        // }));
+
+        const  name = e.target.name;
+        const value = e.target.value;
         setFormData((prevData) => ({
-            ...prevData,
-            [name]: value
-        }));
+                ...prevData, //rest operator -- previouse data store 
+                [name]: value
+            }));
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         try {
+            setLoading(true)  //if error set loading true
             const response = await axios.post('http://127.0.0.1:8000/api/v1/contact/us', formData);
-            console.log('Comment submitted successfully:', response.data);
+            // console.log('Comment submitted successfully:', response.data);
             
-            if (response.status === 201) {
-                toast.success('Form submitted successfully!', {
-                    position: toast.POSITION.TOP_CENTER
-                });
-            
-                // Reset form fields
-                setFormData({
-                    name: '',
-                    email: '',
-                    phone: '',
-                    message: ''
-                });
-            } else {
-                toast.error('Failed to submit form. Please try again.', {
-                    position: toast.POSITION.TOP_CENTER
-                });
-            }
-            
+            toast.success('Form submitted successfully!')
+                
+        
+            setFormData({
+                name: '',
+                email: '',
+                phone: '',
+                message: ''
+            }); 
+            e.target.reset();
+            setLoading(false)
 
         } catch (error) {
+            setLoading(false) //if error set loading false
             console.error('Error submitting comment:', error);
+            toast.error('Failed to submit form. Please try again.' )
+
         }
     };
 
@@ -64,6 +68,10 @@ const Contact = () =>{
         backgroundSize: 'cover', 
         backgroundPosition: 'center', 
       };
+
+    if(loading){
+        return <h1>Loading....</h1>
+    }
 
     return(
     <>
